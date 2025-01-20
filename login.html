@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff8a00, #e52e71);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            animation: backgroundAnimation 10s ease infinite;
+        }
+
+        @keyframes backgroundAnimation {
+            0% { background: linear-gradient(135deg, #ff8a00, #e52e71); }
+            50% { background: linear-gradient(135deg, #6e7fbe, #ff6a00); }
+            100% { background: linear-gradient(135deg, #ff8a00, #e52e71); }
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.9);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-container:hover {
+            transform: scale(1.03);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-container h2 {
+            text-align: center;
+            font-size: 2.8em;
+            margin-bottom: 30px;
+            color: #333;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ccc;
+            border-radius: 12px;
+            font-size: 1.1em;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #e52e71;
+            box-shadow: 0 0 8px rgba(229, 46, 113, 0.6);
+            outline: none;
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 14px;
+            background: #e52e71;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.3em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .form-group button:hover {
+            background: #ff8a00;
+            transform: translateY(-2px);
+        }
+
+        .form-group button:active {
+            background: #d6316c;
+            transform: translateY(2px);
+        }
+
+        .form-group .forgot-password {
+            display: block;
+            margin-top: 12px;
+            font-size: 0.95em;
+            text-align: right;
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .form-group .forgot-password:hover {
+            color: #0056b3;
+        }
+
+        .error-message {
+            color: #ff3333;
+            font-size: 1.1em;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .register-container {
+            margin-top: 20px;
+            font-size: 0.95em;
+            text-align: center;
+        }
+
+        .register-container a {
+            color: #e52e71;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .register-container a:hover {
+            color: #ff8a00;
+        }
+
+        .chatbot-container {
+            margin-top: 35px;
+            text-align: center;
+        }
+
+        iframe {
+            width: 100%;
+            height: 450px;
+            border-radius: 15px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s ease;
+        }
+
+        iframe:hover {
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+
+        <!-- Display error message if available -->
+        <?php if (session_status() === PHP_SESSION_NONE) session_start(); ?>
+        <?php if (!empty($_SESSION['error'])): ?>
+            <div class="error-message">
+                <?php 
+                    echo $_SESSION['error']; 
+                    unset($_SESSION['error']); 
+                ?>
+            </div>
+        <?php endif; ?>
+
+        <!-- Login form -->
+        <form method="POST" action="login.action.php">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" name="login">Login</button>
+            </div>
+            <div class="form-group">
+                <a href="actions/change_password.action.php" class="forgot-password">Forgot Password?</a>
+            </div>
+        </form>
+
+        <!-- Register Section -->
+        <div class="register-container">
+            <p>Don't have an account? <a href="register.php">Register Now</a></p>
+        </div>
+
+        <!-- Chatbot Section -->
+        <div class="chatbot-container">
+            <h3>Need Help? Ask Our Chatbot!</h3>
+            <iframe 
+                src="https://www.chatbase.co/chatbot-iframe/NKnsgvKqYBrYH6AdZGkmw" 
+                title="Chatbot"
+            ></iframe>
+        </div>
+    </div>
+</body>
+</html>
