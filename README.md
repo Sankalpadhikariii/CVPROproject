@@ -1,0 +1,2 @@
+![ll_preview](https://github.com/user-attachments/assets/5afba557-09b8-4e5a-8963-32673c7f8580)
+The user is asked to login and there is a embedded chatbot which is created for helping the users so that they can get the help whenever needed and its created using chatbase. I have used mysql as the database management system. Now,for future,i am attempting to add a few templates for the usr to pick out the cv template on whichever he wants.
