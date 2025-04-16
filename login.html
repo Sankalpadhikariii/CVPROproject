@@ -6,6 +6,7 @@
     <title>Login Page</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        /* CSS styles here */
         * {
             margin: 0;
             padding: 0;
@@ -141,21 +142,92 @@
             color: #ff8a00;
         }
 
+        .oauth-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .oauth-buttons button {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .oauth-buttons .google {
+            background-color: #db4437;
+            color: white;
+        }
+
+        .oauth-buttons .google:hover {
+            background-color: #c33d2f;
+        }
+
+        .oauth-buttons .github {
+            background-color: #333;
+            color: white;
+        }
+
+        .oauth-buttons .github:hover {
+            background-color: #444;
+        }
+
         .chatbot-container {
-            margin-top: 35px;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            z-index: 1000;
             text-align: center;
-        }
-
-        iframe {
-            width: 100%;
-            height: 450px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             border-radius: 15px;
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-            transition: box-shadow 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
         }
 
-        iframe:hover {
-            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
+        .chatbot-container h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .chatbot-container iframe {
+            width: 100%;
+            height: 300px;
+            border-radius: 10px;
+            box-shadow: none;
+        }
+
+        .chatbot-container iframe:hover {
+            box-shadow: none;
+        }
+
+        .chatbot-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #e52e71;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+        }
+
+        .chatbot-toggle:hover {
+            background: #ff8a00;
         }
     </style>
 </head>
@@ -175,7 +247,7 @@
         <?php endif; ?>
 
         <!-- Login form -->
-        <form method="POST" action="login.action.php">
+        <form method="POST" action="login.php">
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" required>
@@ -188,9 +260,21 @@
                 <button type="submit" name="login">Login</button>
             </div>
             <div class="form-group">
-                <a href="actions/change_password.action.php" class="forgot-password">Forgot Password?</a>
+                <a href="forgot-password.html" class="forgot-password">Forgot Password?</a>
             </div>
         </form>
+
+        <!-- OAuth Buttons -->
+        <div class="oauth-buttons">
+            <button class="google" onclick="window.location.href='google-login.php'">
+                <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google" width="20">
+                Sign in with Google
+            </button>
+            <button class="github" onclick="window.location.href='github-login.php'">
+                <img src="https://www.svgrepo.com/show/349375/github.svg" alt="GitHub" width="20">
+                Sign in with GitHub
+            </button>
+        </div>
 
         <!-- Register Section -->
         <div class="register-container">
@@ -205,6 +289,16 @@
                 title="Chatbot"
             ></iframe>
         </div>
+        <button class="chatbot-toggle" onclick="toggleChatbot()">?</button>
     </div>
+    <script>
+        function toggleChatbot() {
+            const chatbotContainer = document.querySelector('.chatbot-container');
+            chatbotContainer.style.display = chatbotContainer.style.display === 'none' ? 'block' : 'none';
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            toggleChatbot(); // Initially hide the chatbot
+        });
+    </script>
 </body>
 </html>
